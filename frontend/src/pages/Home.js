@@ -92,6 +92,7 @@ const Home = () => {
   const handlePopupBtn = () => {
     setShowPopup(false);
     navigate('/library');
+    setTimeout(() => window.scrollTo(0, 0), 0);
   };
 
   // Close popup
@@ -189,6 +190,7 @@ const Home = () => {
           <button
             className="pulse-blue-btn"
             onClick={() => navigate('/library')}
+            onMouseUp={() => setTimeout(() => window.scrollTo(0, 0), 0)}
           >
             [ JOIN AS A TRAINER ]
           </button>
