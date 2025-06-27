@@ -207,8 +207,14 @@ const Home = () => {
           <div style={popupStyle}>
             <button style={closeBtnStyle} onClick={handleClosePopup}>&times;</button>
             <img src={process.env.PUBLIC_URL + '/GOAL.png'} alt="Choose Your Goal" style={{ width: '100%', maxWidth: '500px', margin: '0 auto 1.5rem auto', display: 'block' }} />
-            <button style={popupBtnStyle} onClick={handlePopupBtn}>Lose Fat</button>
-            <button style={popupBtnStyle} onClick={handlePopupBtn}>Build Muscle</button>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '1.5rem' }}>
+              <button style={popupBtnStyle} onClick={handlePopupBtn} aria-label="Lose Fat">
+                <img src={process.env.PUBLIC_URL + '/loose fat.png'} alt="Lose Fat" style={{ width: '120px', height: 'auto', display: 'block' }} />
+              </button>
+              <button style={popupBtnStyle} onClick={handlePopupBtn} aria-label="Build Muscle">
+                <img src={process.env.PUBLIC_URL + '/buildmusle.png'} alt="Build Muscle" style={{ width: '120px', height: 'auto', display: 'block' }} />
+              </button>
+            </div>
           </div>
         </div>
       )}
