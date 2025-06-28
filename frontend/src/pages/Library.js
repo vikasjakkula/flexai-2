@@ -1,12 +1,14 @@
 // src/pages/Library.js
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import MuscleMap from '../components/MuscleMap';
+import LoadingPage from '../components/LoadingPage';
 
 const gymVideo = process.env.PUBLIC_URL + '/videos/gym01.mp4';
 
 const muscleGroups = [
   {
     key: 'biceps',
-    label: '💪 Biceps',
+    label: ' Biceps',
     description: 'Biceps are the muscles on the front of your upper arm, responsible for flexing the elbow.',
     exercises: [
       { name: 'Dumbbell Curl', icon: '🏋️' },
@@ -17,7 +19,7 @@ const muscleGroups = [
   },
   {
     key: 'triceps',
-    label: '🔥 Triceps',
+    label: 'Triceps',
     description: 'Triceps are the muscles on the back of your upper arm, responsible for extending the elbow.',
     exercises: [
       { name: 'Tricep Pushdown', icon: '⬇️' },
@@ -28,7 +30,7 @@ const muscleGroups = [
   },
   {
     key: 'chest',
-    label: '🧱 Chest',
+    label: 'Chest',
     description: 'Chest muscles (pectorals) are responsible for pushing movements and upper body strength.',
     exercises: [
       { name: 'Bench Press', icon: '🏋️‍♂️' },
@@ -39,7 +41,7 @@ const muscleGroups = [
   },
   {
     key: 'back',
-    label: '🦍 Back',
+    label: 'Back',
     description: 'Back muscles support posture and pulling movements, including lats, traps, and rhomboids.',
     exercises: [
       { name: 'Pull-Up', icon: '🧗' },
@@ -49,8 +51,8 @@ const muscleGroups = [
     ],
   },
   {
-    key: 'shoulders',
-    label: '🦾 Shoulders',
+    key: 'Shoulders',
+    label: 'Shoulders',
     description: 'Shoulder muscles (deltoids) are responsible for lifting and rotating the arm.',
     exercises: [
       { name: 'Overhead Press', icon: '🏋️' },
@@ -61,7 +63,7 @@ const muscleGroups = [
   },
   {
     key: 'legs',
-    label: '🦵 Legs',
+    label: 'Legs',
     description: 'Leg muscles include quads, hamstrings, glutes, and calves, powering lower body movement.',
     exercises: [
       { name: 'Squat', icon: '🏋️‍♂️' },
@@ -72,7 +74,7 @@ const muscleGroups = [
   },
   {
     key: 'abs',
-    label: '🔥 Abs / Core',
+    label: 'Abs / Core',
     description: 'Core muscles stabilize your body and support nearly every movement.',
     exercises: [
       { name: 'Plank', icon: '🧘' },
@@ -83,7 +85,7 @@ const muscleGroups = [
   },
   {
     key: 'fullbody',
-    label: '🧠 Full-Body / Functional',
+    label: 'Full-Body / Functional',
     description: 'Full-body and functional exercises train multiple muscle groups and improve coordination.',
     exercises: [
       { name: 'Burpee', icon: '🤸' },
@@ -94,7 +96,7 @@ const muscleGroups = [
   },
   {
     key: 'misc',
-    label: '🏃 Miscellaneous',
+    label: 'Miscellaneous',
     description: 'Cardio, agility, and recovery exercises for overall fitness and health.',
     exercises: [
       { name: 'Jump Rope', icon: '🪢' },
@@ -119,7 +121,16 @@ const Library = () => {
   const [open, setOpen] = useState(null);
   const [videoExercise, setVideoExercise] = useState(null);
   const [videoGroup, setVideoGroup] = useState(null);
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <LoadingPage />;
 
   const handleAccordion = (key) => {
     setOpen(open === key ? null : key);
@@ -214,7 +225,7 @@ const Library = () => {
                       }}
                         onClick={() => handleShowVideo(group.key, ex.name)}
                       >
-                        <span style={{ fontSize: '1.3rem', marginRight: 12 }}>{ex.icon}</span>
+                        
                         {ex.name}
                       </li>
                     ))}
@@ -271,6 +282,7 @@ const Library = () => {
           </div>
         ))}
       </div>
+      <MuscleMap />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Raleway:wght@400;600&display=swap');
         @keyframes fadeIn {
